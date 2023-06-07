@@ -1,3 +1,18 @@
+
 {
-  "extends": "@tsconfig/react-native/tsconfig.json"
+  "extends": "@tsconfig/react-native/tsconfig.json",     /* Recommended React Native TSConfig base */
+  "compilerOptions": {
+    "jsx": "react",
+    /* Visit https://aka.ms/tsconfig.json to read more about this file */
+    "types":[
+      "node",
+      "jest"
+  ],
+    /* Completeness */
+    "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true                                 /* Skip type checking all .d.ts files. */
+  },
+  "typeRoots": ["./types"]
 }
