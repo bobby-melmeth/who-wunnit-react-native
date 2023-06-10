@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect } from 'react'
-import ProgressBar from '../../components/ProgressBar'
+import ProgressBar from '../../components/Common/ProgressBar'
 import { useSharedValue } from 'react-native-reanimated';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 import asyncTimeout from '../../utils/AsyncTimeout';

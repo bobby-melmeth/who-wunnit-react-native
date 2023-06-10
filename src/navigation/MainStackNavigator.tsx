@@ -3,11 +3,13 @@ import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/na
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainTabNavigator, { MainTabParamList } from './MainTabNavigator';
 import SplashScreen from '../screens/Splash/SplashScreen';
+import AuthStackNavigator, { AuthStackParamList } from './AuthStackNavigator';
 
 export type MainStackParamList = {
     MainTabNavigator: NavigatorScreenParams<MainTabParamList>;
-    //Add AuthStackParamList here
+    AuthStackNavigator: NavigatorScreenParams<AuthStackParamList>;
     SplashScreen: NavigatorScreenParams<any>
+
 };
 
 export default function MainStackNavigator() {
@@ -18,6 +20,7 @@ export default function MainStackNavigator() {
             <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName='SplashScreen'>
                 <Stack.Screen name="MainTabNavigator" component={MainTabNavigator} />
                 <Stack.Screen name="SplashScreen" component={SplashScreen} />
+                <Stack.Screen name="AuthStackNavigator" component={AuthStackNavigator} />
             </Stack.Navigator>
 
     );

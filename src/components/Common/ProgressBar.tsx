@@ -2,7 +2,7 @@ import { Dimensions, StyleSheet, Text, View } from 'react-native'
 import React, { FunctionComponent, useEffect } from 'react'
 
 import Animated, { useAnimatedStyle, useSharedValue, withRepeat, withTiming, SharedValue } from 'react-native-reanimated';
-import COLORS from '../constants/theme/Colors';
+import COLORS from '../../constants/theme/Colors';
 const SCREEN = Dimensions.get('screen');
 const PROGRESS_BAR_WIDTH = SCREEN.width * 0.7;
 type Props = {

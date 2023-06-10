@@ -1,97 +1,66 @@
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { createUser, deleteUser, getUser, getUsers, updateUser } from '../../services/userservice'
-import { User } from '../../types/User'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import UserCard from '../../components/UserCard'
+import { useIsFocused, useNavigation } from '@react-navigation/native'
+import { getTeams } from '../../services/teamservice'
+import TeamLogo from '../../components/Cards/TeamLogo'
+import { Team } from './types'
+import LogoSkeleton from '../../components/Skeletons/LogoSkeleton'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { MainStackParamList } from '../../navigation/MainStackNavigator'
 
-
+type NavigationList = NativeStackNavigationProp<MainStackParamList>;
 
 const HomeScreen = () => {
-const [user, setUser] = useState<User | null>(null)
-const [allUsers, setAllUsers] = useState<User[] | null>(null)
-const [email, setEmail] = useState<string>('')
-const [name, setName] = useState<string>('')
+  const [shouldRefetch, setShouldRefetch] = useState<boolean>(false)
+  const [teams, setTeams] = useState<Team[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const navigation = useNavigation<NavigationList>()
+  const isFocused = useIsFocused()
 
-const getSignedInUser = async () => {
-  try {
-    const res = await getUser('1')
-    setUser(res)
+  useEffect(() => {
+    getAllTeams()
+  }, [isFocused, shouldRefetch])
 
-  } catch (error) {
-    throw error
+  const getAllTeams = async () => {
+    setIsLoading(true)
+    try {
+      const data = await getTeams()
+      setTeams(data)
+      setIsLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
   }
-}
 
-const createNewUser = async () => {
-  try {
-    const res = await createUser(email, name)
-    console.log('createdUser res', JSON.stringify(res, null, 2))
-  } catch (error) {
-    console.log(error)
+  const renderTeamLogo = () => {
+    if (isLoading) return (
+      <LogoSkeleton rows={10} />
+    )
+    return teams.map((team, index) => (
+      <TeamLogo key={index} logo={team.crest} teamName={team.name} onPress={() => navigation.navigate('MainTabNavigator')} />
+    ))
   }
-}
-
-const updateTheUser = async () => {
-  try {
-    const data = await updateUser('1', email, name)
-  } catch (error) {
-console.log(error)
-  }
-}
-
-const getAllUsers = async () => {
-  try {
-    const res = await getUsers()
-    setAllUsers(res)
-  } catch (error) {
-console.log(error)
-  }
-}
-
-const deleteSelectedUser = async (id: string) => {
-  try {
-    const res = await deleteUser(id)
-  } catch (error) {
-
-  }
-}
-
-useEffect(() => {
-  getSignedInUser()
-  getAllUsers()
-}, [])
-
-const renderUsersCard = () => {
-return allUsers?.map((user) => {
-  return (
-    <UserCard user={user} onPress={() => deleteSelectedUser(user.id)}/>
-  )
-})
-}
 
   return (
     <SafeAreaView>
-    <View>
-      <Text>{user?.name}</Text>
-      <Text>{user?.email}</Text>
-      <Text>{user?.id}</Text>
-    </View>
-    <View style={{}}>
-      <TextInput placeholder="email" style={{marginVertical: 10, backgroundColor: 'red', paddingVertical: 10}} onChangeText={(a) => setEmail(a)}/>
-      <TextInput placeholder="password" style={{marginVertical: 10, backgroundColor: 'blue', paddingVertical: 10}} onChangeText={(b) => setName(b)}/>
-    <Button onPress={createNewUser} title='create user' />
-    </View>
-    <Button onPress={updateTheUser} title='update user' />
+      <View style={styles.scrollContainer}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          {renderTeamLogo()}
+        </ScrollView>
 
-    <View>
-      {renderUsersCard()}
-    </View>
-
+      </View>
     </SafeAreaView>
   )
 }
 
 export default HomeScreen
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  scrollContainer: {
+    height: 170,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 20
+  }
+})

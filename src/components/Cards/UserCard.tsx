@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { User } from '../types/User'
+import { User } from '../../types/User'
 
 
 type Props = {
