@@ -8,6 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import BackArrow from '../../../assets/icons/BackArrow'
 import COLORS from '../../constants/theme/Colors'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import HeaderWithText from '../../components/Common/HeaderWithText'
 
 type NavigationList = NativeStackNavigationProp<TeamStackParamList>
 
@@ -60,13 +61,9 @@ const ViewPlayer = () => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <BackArrow color={COLORS.BLACK} onPress={() => navigation.goBack()} style={{ alignSelf: 'flex-start', marginLeft: 20 }} />
-
+    <HeaderWithText title={player?.name} isBackAllowed onBackPress={() => navigation.goBack()} />
         <Image source={require('../../../assets/images/defaultpic.png')} style={styles.playerImage} />
-        <View>
-          <Text style={styles.name}>{player?.name}</Text>
-        </View>
-        <View>
+        <View style={{alignItems: 'flex-start', justifyContent: 'space-around', marginLeft: 30, width: 400}}>
           <Text style={styles.name}>Goals: {playerMatches?.aggregations.goals}</Text>
           <Text style={styles.name}>Assists: {playerMatches?.aggregations.assists}</Text>
           <Text style={styles.name}>Penalties: {playerMatches?.aggregations.penalties}</Text>
@@ -95,7 +92,6 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 35,
-    alignSelf: 'center',
     marginTop: 10
   },
   compImage: {
