@@ -15,10 +15,8 @@ const LogoSkeleton = ({rows}: Props) => {
         <SkeletonPlaceholder key={i}>
             <View style={{alignItems: 'center'}}>
               <SkeletonPlaceholder.Item width={100} height={100} borderRadius={99} opacity={0.5} marginHorizontal={10} marginBottom={5}/>
-
                 <SkeletonPlaceholder.Item width={100} height={15} borderRadius={3} opacity={0.5} marginBottom={5} />
-                <SkeletonPlaceholder.Item width={50} height={15} borderRadius={3} opacity={0.5} marginBottom={5} />
-
+                <SkeletonPlaceholder.Item width={50} height={15} borderRadius={3} opacity={0.5} marginBottom={5}  />
             </View>
 
         </SkeletonPlaceholder>

@@ -8,6 +8,7 @@ import { Team } from './types'
 import LogoSkeleton from '../../components/Skeletons/LogoSkeleton'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { MainStackParamList } from '../../navigation/MainStackNavigator'
+import { Svg } from 'react-native-svg'
 
 type NavigationList = NativeStackNavigationProp<MainStackParamList>;
 
@@ -34,11 +35,12 @@ const HomeScreen = () => {
   }
 
   const renderTeamLogo = () => {
+    if(!teams) return
     if (isLoading) return (
       <LogoSkeleton rows={10} />
     )
     return teams.map((team, index) => (
-      <TeamLogo key={index} logo={team.crest} teamName={team.name} onPress={() => navigation.navigate('MainTabNavigator')} />
+      <TeamLogo key={index} logo={team.crest} teamName={team.name} onPress={() => navigation.navigate('TeamStackNavigator', {screen: 'ViewTeam', params: {team}})} />
     ))
   }
 
@@ -47,6 +49,7 @@ const HomeScreen = () => {
       <View style={styles.scrollContainer}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           {renderTeamLogo()}
+
         </ScrollView>
 
       </View>
