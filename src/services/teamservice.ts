@@ -2,7 +2,7 @@ import axios from "axios"
 
 export const getTeams = async () => {
     try {
-        const { data } = await axios.get('http://192.168.0.228:8088/teams/')
+        const { data } = await axios.get('http://192.168.0.228:8888/teams/')
         return data
     } catch (error) {
         console.log('DB error', error)

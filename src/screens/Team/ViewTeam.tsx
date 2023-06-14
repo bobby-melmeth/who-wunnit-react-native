@@ -100,6 +100,9 @@ const ViewTeam = () => {
   };
 
 
+  // const renderPlayers: React.FC<> = () => {}
+
+
 
 const filteredSquad = selectedTab ? squad.filter((player) => player.position === selectedTab.value) : squad;
 
