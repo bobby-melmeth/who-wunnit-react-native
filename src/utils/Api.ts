@@ -7,12 +7,14 @@ import axios, { AxiosInstance } from 'axios';
 
 
 const Api: AxiosInstance = axios.create({
-    baseURL: 'http://localhost:8080',
+    baseURL: 'http://192.168.0.228:8888/',
     timeout: 1000,
     headers: {
       'Content-Type': 'application/json',
     },
   });
+
+
 
 // Api.interceptors.request.use(async (config: AxiosRequestConfig<any>) => {
 //     const JSONToken = await AsyncStorage.getItem('token');

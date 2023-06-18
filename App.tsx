@@ -7,18 +7,22 @@ import {
 import MainStackNavigator from './src/navigation/MainStackNavigator';
 import { NavigationContainer } from '@react-navigation/native';
 import { navTheme } from './src/constants/theme/NavTheme';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-
+console.log(process.env.XAUTH_TOKEN)
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
+  const queryClient = new QueryClient();
 
   return (
 
-    <NavigationContainer theme={navTheme}>
-      <MainStackNavigator />
-    </NavigationContainer>
+    <QueryClientProvider client={queryClient} >
+      <NavigationContainer theme={navTheme}>
+        <MainStackNavigator />
+      </NavigationContainer>
+    </QueryClientProvider>
 
 
   );
